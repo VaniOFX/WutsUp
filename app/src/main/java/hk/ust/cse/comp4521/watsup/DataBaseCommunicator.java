@@ -16,8 +16,4 @@ public class DataBaseCommunicator {
     }
 
 
-    public static
-    }
-
-
 }

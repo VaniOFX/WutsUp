@@ -6,14 +6,12 @@ import android.os.Bundle;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
-import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
-    private User
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                         .build(),
                 RC_SIGN_IN);
         } else {
-            Intent i = new Intent(this, EventListActivity.class);
+            Intent i = new Intent(this, OptionsActivity.class);
             startActivity(i);
         }
     }
@@ -42,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
-                Intent i = new Intent(this, EventListActivity.class);
+                Intent i = new Intent(this, OptionsActivity.class);
                 startActivity(i);
             } else {
 

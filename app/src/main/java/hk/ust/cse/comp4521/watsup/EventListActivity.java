@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import hk.ust.cse.comp4521.watsup.dummy.EventContent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +40,7 @@ public class EventListActivity extends AppCompatActivity {
      * device.
      */
     private boolean mTwoPane;
-    private List<Event> events;
+    private List<Event> events = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +110,7 @@ public class EventListActivity extends AppCompatActivity {
                 Event item = (Event) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(EventDetailFragment.ARG_ITEM_ID, item.id);
+                    arguments.putString(EventDetailFragment.ARG_ITEM_ID, item.getName());
                     EventDetailFragment fragment = new EventDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -118,7 +119,7 @@ public class EventListActivity extends AppCompatActivity {
                 } else {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, EventDetailActivity.class);
-                    intent.putExtra(EventDetailFragment.ARG_ITEM_ID, item.id);
+                    intent.putExtra(EventDetailFragment.ARG_ITEM_ID, item.getName());
 
                     context.startActivity(intent);
                 }
@@ -142,8 +143,8 @@ public class EventListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            holder.mIdView.setText(mValues.get(position).getName());
+            holder.mContentView.setText(mValues.get(position).getType());
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
@@ -151,7 +152,8 @@ public class EventListActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return mValues.size();
+
+            return mValues == null? 0 : mValues.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {

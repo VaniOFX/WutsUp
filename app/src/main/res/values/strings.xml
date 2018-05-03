@@ -4,4 +4,6 @@
     <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
     <string name="title_event_list">Events</string>
     <string name="title_event_detail">Event Detail</string>
+    <string name="addEventButton">Add Event</string>
+    <string name="exploreButton">Explore Events</string>
 </resources>
