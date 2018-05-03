@@ -8,6 +8,8 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Arrays;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,10 +24,10 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
-//                        .setAvailableProviders(Arrays.asList(
-//                                new AuthUI.IdpConfig.EmailBuilder().build(),
-//                                new AuthUI.IdpConfig.GoogleBuilder().build(),
-//                                new AuthUI.IdpConfig.FacebookBuilder().build()))
+                        .setAvailableProviders(Arrays.asList(
+                                new AuthUI.IdpConfig.EmailBuilder().build(),
+                                new AuthUI.IdpConfig.GoogleBuilder().build(),
+                                new AuthUI.IdpConfig.FacebookBuilder().build()))
                         .build(),
                 RC_SIGN_IN);
         } else {

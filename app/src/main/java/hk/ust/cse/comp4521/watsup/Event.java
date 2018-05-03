@@ -1,13 +1,11 @@
 package hk.ust.cse.comp4521.watsup;
 
-import java.util.Date;
-
 public class Event {
 
 
     private String eventID;
-    private String name;
     private String userID;
+    private String name;
     private int capacity;
     private String coordinates;
     private String date;
@@ -15,22 +13,6 @@ public class Event {
     private String type;
 
     public Event(){}
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public Event(String name, String userID, int capacity, String coordinates, String date, String description, String type) {
         this.name = name;
@@ -92,6 +74,22 @@ public class Event {
 
     public String getContent(){
         return "content";
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
 

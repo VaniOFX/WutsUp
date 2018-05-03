@@ -9,20 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import hk.ust.cse.comp4521.watsup.dummy.Observer;
 
-import hk.ust.cse.comp4521.watsup.dummy.EventContent;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,22 +27,24 @@ import java.util.List;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class EventListActivity extends AppCompatActivity {
+public class EventListActivity extends AppCompatActivity implements Observer {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
-    private List<Event> events = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
 
+        DataBaseCommunicator.addObserver(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Log.d("SOMETAG", getTitle().toString());
         toolbar.setTitle(getTitle());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -68,35 +64,31 @@ public class EventListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
 
-        View recyclerView = findViewById(R.id.event_list);
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
     }
 
     @Override
     protected void onStart(){
         super.onStart();
-        DatabaseReference eventDB = FirebaseDatabase.getInstance().getReference("event");
-        eventDB.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                events.clear();
-                for(DataSnapshot ds: dataSnapshot.getChildren()){
-                    Event e = ds.getValue(Event.class);
-                    events.add(e);
-                }
-            }
+        DataBaseCommunicator.setUpDataBase();
+    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        DataBaseCommunicator.removeObserver(this);
+    }
 
-            }
-        });
+    @Override
+    public void update() {
+        View recyclerView = findViewById(R.id.event_list);
+        assert recyclerView != null;
+        setupRecyclerView((RecyclerView) recyclerView);
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, events, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DataBaseCommunicator.events, mTwoPane));
     }
+
 
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
@@ -153,7 +145,7 @@ public class EventListActivity extends AppCompatActivity {
         @Override
         public int getItemCount() {
 
-            return mValues == null? 0 : mValues.size();
+            return mValues == null ? 0 : mValues.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
