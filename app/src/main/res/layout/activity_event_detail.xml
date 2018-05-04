@@ -39,9 +39,9 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/event_detail_container"
         android:layout_width="match_parent"
-        android:layout_height="371dp"
+        android:layout_height="369dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout_editor_absoluteY="344dp" />
+        tools:layout_editor_absoluteY="202dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/enrollButton"
@@ -49,8 +49,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|start"
         android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="?attr/colorPrimaryDark"
         app:layout_anchor="@+id/event_detail_container"
         app:layout_anchorGravity="top|end"
-        app:srcCompat="@android:drawable/stat_notify_chat" />
+        app:srcCompat="@drawable/plusicon" />
 
 </android.support.design.widget.CoordinatorLayout>

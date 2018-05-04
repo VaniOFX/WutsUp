@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="90dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
@@ -22,8 +22,6 @@
         android:layout_height="30dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/imageView2"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="15dp"
         android:background="@android:drawable/screen_background_light_transparent"
         android:ellipsize="start"
         android:ems="10"
@@ -37,10 +35,8 @@
         android:id="@+id/eventCapacity"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:layout_alignBaseline="@+id/eventNameText"
-        android:layout_alignBottom="@+id/eventNameText"
-        android:layout_marginStart="22dp"
-        android:layout_toEndOf="@+id/eventNameText"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true"
         android:background="@android:drawable/screen_background_light_transparent"
         android:ellipsize="start"
         android:ems="10"
@@ -51,11 +47,10 @@
 
     <EditText
         android:id="@+id/descriptionText"
-        android:layout_width="266dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/eventCapacity"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
+        android:layout_width="250dp"
+        android:layout_height="90dp"
+        android:layout_below="@+id/dateText"
+        android:layout_toStartOf="@+id/eventCapacity"
         android:background="@android:drawable/screen_background_light_transparent"
         android:ellipsize="start"
         android:ems="10"
@@ -63,25 +58,23 @@
         android:hint="Description"
         android:inputType="textMultiLine"
         android:lines="8"
-        android:minLines="1"
         android:maxLines="10"
+        android:minLines="1"
         android:singleLine="true" />
 
     <Button
         android:id="@+id/dateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/descriptionText"
-        android:layout_below="@+id/descriptionText"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="21dp"
+        android:layout_below="@+id/imageView2"
+        android:layout_toStartOf="@+id/timetext"
         android:backgroundTint="@color/colorPrimary"
         android:text="Date" />
 
     <Button
         android:id="@+id/addEventButton"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_gravity="center_vertical"
@@ -92,10 +85,9 @@
         android:id="@+id/timetext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/descriptionText"
-        android:layout_below="@+id/descriptionText"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/imageView2"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="Time" />
 
@@ -103,19 +95,17 @@
         android:id="@+id/location"
         android:layout_width="300dp"
         android:layout_height="54dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/type"
+        android:layout_alignBottom="@+id/descriptionText"
+        android:layout_alignEnd="@+id/type"
         android:backgroundTint="@color/colorPrimary"
         android:text="Location" />
 
     <Spinner
         android:id="@+id/type"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:hint="Type"
-        android:layout_below="@+id/dateText"
-        android:layout_marginTop="22dp" />
+        android:layout_alignStart="@+id/dateText"
+        android:layout_centerVertical="true"
+        android:hint="Type" />
 
 </RelativeLayout>
