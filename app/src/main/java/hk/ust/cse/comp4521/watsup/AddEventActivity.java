@@ -10,9 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -141,6 +143,11 @@ public class AddEventActivity extends AppCompatActivity{
             }
         };
 
+        Spinner dropdown = findViewById(R.id.type);
+        String[] items = new String[]{"No Type", "Sport", "Party", "Outdoor", "Hangout", "Viewing", "Birthday", "Study"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapter);
+
     }
 
 
@@ -176,6 +183,7 @@ public class AddEventActivity extends AppCompatActivity{
         }
         return false;
     }
+
 
 
 }
