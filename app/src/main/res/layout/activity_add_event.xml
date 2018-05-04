@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,48 +7,101 @@
     android:orientation="vertical"
     tools:context=".AddEventActivity">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/eventcreator" />
+
     <EditText
         android:id="@+id/eventNameText"
-        android:layout_width="240dp"
-        android:layout_height="70dp"
+        android:layout_width="204dp"
+        android:layout_height="30dp"
+        android:layout_above="@+id/eventCapacity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:background="@android:drawable/screen_background_light_transparent"
+        android:ellipsize="start"
         android:ems="10"
+        android:gravity="center_horizontal|fill_horizontal"
+        android:hint="Name"
         android:inputType="textPersonName"
-        android:text="name" />
-
-    <EditText
-        android:id="@+id/eventDate"
-        android:layout_width="244dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="date" />
-
-    <EditText
-        android:id="@+id/eventPlace"
-        android:layout_width="247dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="place" />
+        android:singleLine="true"
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/eventCapacity"
-        android:layout_width="249dp"
-        android:layout_height="50dp"
+        android:layout_width="204dp"
+        android:layout_height="30dp"
+        android:layout_above="@+id/descriptionText"
+        android:layout_alignStart="@+id/eventNameText"
+        android:layout_marginBottom="18dp"
+        android:background="@android:drawable/screen_background_light_transparent"
+        android:ellipsize="start"
         android:ems="10"
+        android:singleLine="true"
+        android:gravity="center_horizontal|fill_horizontal"
+        android:hint="Capacity"
         android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/descriptionText"
-        android:layout_width="248dp"
-        android:layout_height="wrap_content"
+        android:layout_width="266dp"
+        android:layout_height="60dp"
+        android:layout_above="@+id/dateText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="21dp"
+        android:background="@android:drawable/screen_background_light_transparent"
+        android:ellipsize="start"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="description" />
+        android:gravity="fill_horizontal"
+        android:singleLine="true"
+        android:hint="Description"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/dateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/location"
+        android:layout_alignStart="@+id/eventCapacity"
+        android:layout_marginBottom="21dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Date" />
 
     <Button
         android:id="@+id/addEventButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="22dp"
+        android:background="@color/colorPrimary"
         android:text="Add Event" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/timetext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/location"
+        android:layout_alignEnd="@+id/descriptionText"
+        android:layout_marginBottom="21dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Time" />
+
+    <Button
+        android:id="@+id/location"
+        android:layout_width="300dp"
+        android:layout_height="54dp"
+        android:layout_above="@+id/addEventButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="21dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Location" />
+
+</RelativeLayout>

@@ -27,7 +27,9 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/event_list" />
+        <include
+            layout="@layout/event_list"
+            android:layout_height="553dp" />
     </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
