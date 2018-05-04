@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hk.ust.cse.comp4521.watsup.dummy.Observer;
+import hk.ust.cse.comp4521.watsup.models.Event;
 
 public class DataBaseCommunicator {
 

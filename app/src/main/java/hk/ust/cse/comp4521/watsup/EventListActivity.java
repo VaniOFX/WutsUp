@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import hk.ust.cse.comp4521.watsup.dummy.Observer;
+import hk.ust.cse.comp4521.watsup.models.Event;
 
 import java.util.List;
 

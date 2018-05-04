@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import hk.ust.cse.comp4521.watsup.Event;
+import hk.ust.cse.comp4521.watsup.models.Event;
 
 /**
  * Helper class for providing sample content for user interfaces created by

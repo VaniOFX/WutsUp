@@ -13,11 +13,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/doneButton"
+        android:layout_width="89dp"
+        android:layout_height="74dp"
+        android:layout_alignEnd="@+id/relLayout1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"
+        app:backgroundTint="#000"
+        app:rippleColor="#fff"
+        app:srcCompat="@drawable/fui_done_check_mark" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:elevation="10dp"
         android:background="@drawable/white_border"
         android:id="@+id/relLayout1">
@@ -30,7 +43,7 @@
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_magnify"/>
         
-        <EditText
+        <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/ic_magnify"
