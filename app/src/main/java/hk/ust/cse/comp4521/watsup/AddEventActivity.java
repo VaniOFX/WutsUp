@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -129,6 +130,8 @@ public class AddEventActivity extends AppCompatActivity{
         Event e = new Event(name, userID, capacity, coordinates, date, decription, null);
         DataBaseCommunicator.saveEvent(e);
     }
+
+
 
 
 }

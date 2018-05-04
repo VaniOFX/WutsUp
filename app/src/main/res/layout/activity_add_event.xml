@@ -22,14 +22,14 @@
         android:layout_height="30dp"
         android:layout_above="@+id/eventCapacity"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="15dp"
         android:background="@android:drawable/screen_background_light_transparent"
         android:ellipsize="start"
         android:ems="10"
         android:gravity="center_horizontal|fill_horizontal"
         android:hint="Name"
-        android:singleLine="true"
         android:inputType="textPersonName"
+        android:singleLine="true"
         android:visibility="visible" />
 
     <EditText
@@ -54,7 +54,7 @@
         android:layout_above="@+id/dateText"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="21dp"
-        android:background="@color/fui_transparent"
+        android:background="@android:drawable/screen_background_light_transparent"
         android:ellipsize="start"
         android:ems="10"
         android:gravity="fill_horizontal"
