@@ -1,9 +1,19 @@
 <resources>
     <string name="app_name">WutsUp</string>
-    <string name="facebook_application_id" translatable="false">YOUR_APP_ID</string>
-    <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
+    <string name="facebook_application_id" translatable="false">565722663821135</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">565722663821135</string>
     <string name="title_event_list">Events</string>
     <string name="title_event_detail">Event Detail</string>
     <string name="addEventButton">Add Event</string>
     <string name="exploreButton">Explore Events</string>
+    <string name="profile">Profile</string>
+    <string name="capacity">Capacity</string>
+    <string name="description">Description</string>
+    <string name="name">Name</string>
+    <string name="date">Date</string>
+    <string name="add_event">Add Event</string>
+    <string name="todo">TODO</string>
+    <string name="type">Type</string>
+    <string name="time">Time</string>
+    <string name="location">Location</string>
 </resources>

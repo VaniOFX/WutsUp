@@ -34,7 +34,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@android:color/holo_blue_bright"
-        android:text="Profile" />
+        android:text="@string/profile" />
 
     <ImageButton
         android:id="@+id/imageaddeb"

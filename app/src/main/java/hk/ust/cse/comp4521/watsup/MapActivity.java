@@ -2,6 +2,7 @@ package hk.ust.cse.comp4521.watsup;
 
 import android.*;
 import android.Manifest;
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,6 +23,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -126,22 +128,42 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         extras = getIntent().getExtras();
-        findViewById(R.id.doneButton).setOnClickListener(new View.OnClickListener() {
+//        findViewById(R.id.doneButton).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(MapActivity.this, AddEventActivity.class);
+//                i.putExtra(Event.EVENT_NAME, extras.getString(Event.EVENT_NAME));
+//                i.putExtra(Event.EVENT_CAPACITY, extras.getInt(Event.EVENT_CAPACITY));
+//                i.putExtra(Event.EVENT_DATE, extras.getString(Event.EVENT_DATE));
+//                i.putExtra(Event.EVENT_DESCRIPTION, extras.getString(Event.EVENT_DESCRIPTION));
+//                i.putExtra(Event.EVENT_TYPE, extras.getString(Event.EVENT_TYPE));
+//                i.putExtra(Event.EVENT_TIME, extras.getString(Event.EVENT_TIME));
+//                i.putExtra(Event.EVENT_COORDINATES, lastCoordinates.toString());
+//                startActivity(i);
+//
+//            }
+//        });
+
+        mSearchText = (AutoCompleteTextView) findViewById(R.id.inputSearch);
+        mSearchText.setVisibility(View.GONE);
+//        mGps = (ImageView) findViewById(R.id.ic_gps);
+
+        FloatingActionButton doneButton = findViewById(R.id.doneButton);
+        doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MapActivity.this, AddEventActivity.class);
-                i.putExtra(Event.EVENT_NAME, extras.getString(Event.EVENT_NAME));
-                i.putExtra(Event.EVENT_CAPACITY, extras.getInt(Event.EVENT_CAPACITY));
-                i.putExtra(Event.EVENT_DATE, extras.getString(Event.EVENT_DATE));
-                i.putExtra(Event.EVENT_DESCRIPTION, extras.getString(Event.EVENT_DESCRIPTION));
-                i.putExtra(Event.EVENT_TYPE, extras.getString(Event.EVENT_TYPE));
-                i.putExtra(Event.EVENT_COORDINATES, lastCoordinates.toString());
-                startActivity(i);
-
+                if(lastCoordinates != null) {
+                    Intent returnIntent = new Intent();
+                    Log.d(TAG, "doneButton onClick: " + lastCoordinates.toString());
+                    returnIntent.putExtra(Event.EVENT_COORDINATES, lastCoordinates.latitude + "," + lastCoordinates.longitude);
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                }
+                else{
+                    Toast.makeText(MapActivity.this,"You have not selected a location", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-        mSearchText = (AutoCompleteTextView) findViewById(R.id.inputSearch);
-//        mGps = (ImageView) findViewById(R.id.ic_gps);
 
         getLocationPermission();
 
@@ -153,6 +175,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         try{
+
             if(mLocationPermissionsGranted){
                 mFusedLocationProviderClient.requestLocationUpdates(new LocationRequest(),
                         PendingIntent.getBroadcast(this,
@@ -341,6 +364,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             mMap.addMarker(options);
         }
         lastCoordinates = latLng;
+
         hideSoftKeyboard();
     }
 

@@ -1,5 +1,6 @@
 package hk.ust.cse.comp4521.watsup;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -32,15 +34,17 @@ public class AddEventActivity extends AppCompatActivity{
 
     private static final String TAG = "AddEventActivity" ;
     private static final int ERROR_DIALOG_REQUEST = 9001;
+    private static final int REQUEST_CODE = 1234;
 
-    EditText nameText;
-    EditText decriptionText;
-    EditText capacityText;
-    EditText coordinatesText;
-    EditText dateText;
 
+    private EditText nameText;
+    private EditText descriptionText;
+    private EditText capacityText;
     private TextView dateResult;
     private TextView timeResult;
+    private Button locationButton;
+    private String eventCoordinates;
+    private Spinner dropdown;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private TimePickerDialog.OnTimeSetListener mTimeSetListener;
 
@@ -49,40 +53,14 @@ public class AddEventActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
         nameText = (EditText) findViewById(R.id.eventNameText);
-        decriptionText = (EditText) findViewById(R.id.descriptionText);
+        descriptionText = (EditText) findViewById(R.id.descriptionText);
         capacityText = (EditText) findViewById(R.id.eventCapacity);
-        //coordinatesText = (EditText) findViewById(R.id.eventPlace);
-        //dateText = (EditText) findViewById(R.id.dateText);
         Button addEventButton = (Button) findViewById(R.id.addEventButton);
-        Button locationButton = (Button) findViewById(R.id.location);
-
-
-
-        locationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isServicesOK()) {
-                    Intent i = new Intent(AddEventActivity.this, MapActivity.class);
-                    i.putExtra(Event.EVENT_NAME, nameText.getText().toString());
-                    i.putExtra(Event.EVENT_CAPACITY, Integer.parseInt(capacityText.getText().toString()));
-                    i.putExtra(Event.EVENT_DATE, dateResult.getText().toString());
-                    i.putExtra(Event.EVENT_DESCRIPTION, decriptionText.getText().toString());
-                    i.putExtra(Event.EVENT_TYPE, decriptionText.getText().toString());
-                    startActivity(i);
-                }
-            }
-        });
-
-        addEventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addEvent();
-            }
-        });
-
-        //super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+        locationButton = (Button) findViewById(R.id.location);
         dateResult = (TextView) findViewById(R.id.dateText);
+        //Button timeText = (Button) findViewById(R.id.timetext);
+        timeResult = (TextView) findViewById(R.id.timetext);
+
 
         dateResult.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,8 +89,7 @@ public class AddEventActivity extends AppCompatActivity{
             }
         };
 
-        //Button timeText = (Button) findViewById(R.id.timetext);
-        timeResult = (TextView) findViewById(R.id.timetext);
+
         timeResult.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -143,24 +120,93 @@ public class AddEventActivity extends AppCompatActivity{
             }
         };
 
-        Spinner dropdown = findViewById(R.id.type);
+        dropdown = findViewById(R.id.type);
         String[] items = new String[]{"No Type", "Sport", "Party", "Outdoor", "Hangout", "Viewing", "Birthday", "Study"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
 
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isServicesOK()) {
+                    Intent i = new Intent(AddEventActivity.this, MapActivity.class);
+//                    i.putExtra(Event.EVENT_NAME, nameText.getText().toString());
+//                    i.putExtra(Event.EVENT_CAPACITY, Integer.parseInt(capacityText.getText().toString()));
+//                    i.putExtra(Event.EVENT_DATE, dateResult.getText().toString());
+//                    i.putExtra(Event.EVENT_DESCRIPTION, descriptionText.getText().toString());
+//                    i.putExtra(Event.EVENT_TYPE, descriptionText.getText().toString());
+//                    i.putExtra(Event.EVENT_TIME, timeResult.getText().toString());
+                    startActivityForResult(i, REQUEST_CODE);
+                }
+            }
+        });
+
+        addEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(addEvent()) {
+                    Toast.makeText(AddEventActivity.this, "Event Added Successfully", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(AddEventActivity.this, OptionsActivity.class);
+                    startActivity(i);
+                }
+            }
+        });
+
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_CODE){
+            if(resultCode == Activity.RESULT_OK){
+                eventCoordinates = data.getStringExtra(Event.EVENT_COORDINATES);
+                locationButton.setText("Location Selected Successfully");
+                Log.d(TAG, "onActivityResult: "+ eventCoordinates);
+            }
+        }
+    }
 
+    private boolean addEvent(){
+        String eventName = nameText.getText().toString();
+        if(TextUtils.isEmpty(eventName)){
+            nameText.setError("The event should have a name");
+            return false;
+        }
 
-    private void addEvent(){
-        String name = nameText.getText().toString().trim();
-        String decription = decriptionText.getText().toString().trim();
-        int capacity = Integer.parseInt(capacityText.getText().toString());
-        String coordinates = coordinatesText.getText().toString().trim();
-        String date = dateText.getText().toString();
+        String eventDescription = descriptionText.getText().toString();
+        if(TextUtils.isEmpty(eventDescription)){
+            descriptionText.setError("The event should have a description");
+            return false;
+        }
+
+        String eventCapacity = capacityText.getText().toString();
+        if(TextUtils.isEmpty(eventCapacity)){
+            capacityText.setError("The event should have a capacity");
+            return false;
+        }
+
+        String eventDate = dateResult.getText().toString();
+        if(eventDate.equals("Date")){
+            dateResult.setError("The event should have a date");
+            return false;
+        }
+
+        String eventTime = timeResult.getText().toString();
+        if(eventTime.equals("Time")){
+            timeResult.setError("The event should have a time");
+             return false;
+        }
+
+        String eventType = dropdown.getSelectedItem().toString();
+
+        if(TextUtils.isEmpty(eventCoordinates)){
+            locationButton.setError("The event should have a location");
+            return false;
+        }
+
         String userID = FirebaseAuth.getInstance().getUid();
-        Event e = new Event(name, userID, capacity, coordinates, date, decription, null);
+        Event e = new Event(eventName, userID, eventCapacity, eventCoordinates, eventDate, eventTime, eventDescription, eventType);
         DataBaseCommunicator.saveEvent(e);
+        return true;
     }
 
     public boolean isServicesOK(){
