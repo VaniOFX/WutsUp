@@ -19,6 +19,7 @@ import hk.ust.cse.comp4521.watsup.dummy.Observer;
 import hk.ust.cse.comp4521.watsup.models.Event;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * An activity representing a list of Events. This activity
@@ -52,8 +53,9 @@ public class EventListActivity extends AppCompatActivity implements Observer {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(EventListActivity.this, MapActivity.class);
+                i.putExtra(MapActivity.CALLING_ACTIVITY,MapActivity.EXPLORE_ACTIVITY);
+                startActivity(i);
             }
         });
 

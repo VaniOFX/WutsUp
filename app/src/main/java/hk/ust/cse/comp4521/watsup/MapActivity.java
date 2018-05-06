@@ -48,14 +48,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import hk.ust.cse.comp4521.watsup.models.CustomInfoWindowAdapter;
 import hk.ust.cse.comp4521.watsup.models.Event;
 import hk.ust.cse.comp4521.watsup.models.PlaceInfo;
 
@@ -95,12 +98,22 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
+            if(callingActivity.equals(MapActivity.EXPLORE_ACTIVITY)){
+                Log.d(TAG, "onCreate: The calling activity is EXPLORE ACTIVITY");
+                findViewById(R.id.relLayout1).setVisibility(View.GONE);
+                findViewById(R.id.doneButton).setVisibility(View.GONE);
+                putMarkers();
+            }
+
             init();
         }
     }
 
     private static final String TAG = "MapActivity";
 
+    public static final String CALLING_ACTIVITY = "Calling activity";
+    public static final String ADDEVENT_ACITIVTY = "add event activity";
+    public static final String EXPLORE_ACTIVITY = "explore events activity";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
@@ -121,32 +134,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private GoogleApiClient mGoogleApiClient;
     private PlaceInfo mPlace;
     private LatLng lastCoordinates;
-    private Bundle extras;
+    private String callingActivity = "DefaultValue";
+    private HashMap<Marker, Integer> markerMap;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        extras = getIntent().getExtras();
-//        findViewById(R.id.doneButton).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(MapActivity.this, AddEventActivity.class);
-//                i.putExtra(Event.EVENT_NAME, extras.getString(Event.EVENT_NAME));
-//                i.putExtra(Event.EVENT_CAPACITY, extras.getInt(Event.EVENT_CAPACITY));
-//                i.putExtra(Event.EVENT_DATE, extras.getString(Event.EVENT_DATE));
-//                i.putExtra(Event.EVENT_DESCRIPTION, extras.getString(Event.EVENT_DESCRIPTION));
-//                i.putExtra(Event.EVENT_TYPE, extras.getString(Event.EVENT_TYPE));
-//                i.putExtra(Event.EVENT_TIME, extras.getString(Event.EVENT_TIME));
-//                i.putExtra(Event.EVENT_COORDINATES, lastCoordinates.toString());
-//                startActivity(i);
-//
-//            }
-//        });
-
         mSearchText = (AutoCompleteTextView) findViewById(R.id.inputSearch);
-        mSearchText.setVisibility(View.GONE);
 //        mGps = (ImageView) findViewById(R.id.ic_gps);
+        callingActivity = getIntent().getStringExtra(MapActivity.CALLING_ACTIVITY);
 
         FloatingActionButton doneButton = findViewById(R.id.doneButton);
         doneButton.setOnClickListener(new View.OnClickListener() {
@@ -165,8 +162,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        getLocationPermission();
 
+        getLocationPermission();
     }
 
     private void getDeviceLocation(){
@@ -200,7 +197,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                         }else{
                             Log.d(TAG, "onComplete: current location is null");
-                            Toast.makeText(MapActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MapActivity.this, "Unable to get current location", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -356,20 +353,54 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void moveCamera(LatLng latLng, float zoom, String title){
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
-        mMap.clear();
-        if(!title.equals("My Location")){
-            MarkerOptions options = new MarkerOptions()
-                    .position(latLng)
-                    .title(title);
-            mMap.addMarker(options);
+        if(!callingActivity.equals(MapActivity.EXPLORE_ACTIVITY)){
+            mMap.clear();
+            if (!title.equals("My Location")) {
+                MarkerOptions options = new MarkerOptions()
+                        .position(latLng)
+                        .title(title);
+                mMap.addMarker(options);
+            }
+            lastCoordinates = latLng;
+            hideSoftKeyboard();
         }
-        lastCoordinates = latLng;
-
-        hideSoftKeyboard();
     }
 
     private void hideSoftKeyboard(){
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    private void putMarkers(){
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapActivity.this));
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Intent i = new Intent(MapActivity.this, EventDetailActivity.class);
+                i.putExtra(EventDetailFragment.ARG_ITEM_ID, markerMap.get(marker));
+                startActivity(i);
+            }
+        });
+        markerMap = new HashMap<>();
+
+        for(int i = 0; i < DataBaseCommunicator.events.size(); i++){
+            Event e = DataBaseCommunicator.events.get(i);
+            String[] latLng = e.getCoordinates().split(",");
+            String snippet = "Capacity: " + e.getCapacity() + "\n" +
+                    "Date: " + e.getDate() + "\n" +
+                    "Time: " + e.getTime() + "\n" +
+                    "Description: " +  e.getDescription();
+
+            Log.d(TAG, "putMarkers: snippet: " + snippet);
+
+            MarkerOptions options = new MarkerOptions()
+                    .position(new LatLng(Double.parseDouble(latLng[0]), Double.parseDouble(latLng[1])))
+                    .title(e.getName())
+                    .snippet(snippet);
+
+            Marker m = mMap.addMarker(options);
+            markerMap.put(m,i);
+
+        }
     }
 
     /*

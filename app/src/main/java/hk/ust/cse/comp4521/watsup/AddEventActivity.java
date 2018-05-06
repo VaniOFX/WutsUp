@@ -136,6 +136,7 @@ public class AddEventActivity extends AppCompatActivity{
 //                    i.putExtra(Event.EVENT_DESCRIPTION, descriptionText.getText().toString());
 //                    i.putExtra(Event.EVENT_TYPE, descriptionText.getText().toString());
 //                    i.putExtra(Event.EVENT_TIME, timeResult.getText().toString());
+                    i.putExtra(MapActivity.CALLING_ACTIVITY, MapActivity.ADDEVENT_ACITIVTY);
                     startActivityForResult(i, REQUEST_CODE);
                 }
             }
