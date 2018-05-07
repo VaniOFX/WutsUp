@@ -36,12 +36,8 @@ public class AddEventActivity extends AppCompatActivity{
     private static final int ERROR_DIALOG_REQUEST = 9001;
     private static final int REQUEST_CODE = 1234;
 
-
-    private EditText nameText;
-    private EditText descriptionText;
-    private EditText capacityText;
-    private TextView dateResult;
-    private TextView timeResult;
+    private EditText nameText, descriptionText, capacityText;
+    private TextView dateResult, timeResult;
     private Button locationButton;
     private String eventCoordinates;
     private Spinner dropdown;
@@ -51,15 +47,15 @@ public class AddEventActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: AddEventActivity Started");
         setContentView(R.layout.activity_add_event);
-        nameText = (EditText) findViewById(R.id.eventNameText);
-        descriptionText = (EditText) findViewById(R.id.descriptionText);
-        capacityText = (EditText) findViewById(R.id.eventCapacity);
+        nameText = (EditText) findViewById(R.id.eventNameTextField);
+        descriptionText = (EditText) findViewById(R.id.descriptionTextField);
+        capacityText = (EditText) findViewById(R.id.eventCapacityTextField);
         Button addEventButton = (Button) findViewById(R.id.addEventButton);
-        locationButton = (Button) findViewById(R.id.location);
-        dateResult = (TextView) findViewById(R.id.dateText);
-        //Button timeText = (Button) findViewById(R.id.timetext);
-        timeResult = (TextView) findViewById(R.id.timetext);
+        locationButton = (Button) findViewById(R.id.locationButton);
+        dateResult = (TextView) findViewById(R.id.dateTextView);
+        timeResult = (TextView) findViewById(R.id.timeTextView);
 
 
         dateResult.setOnClickListener(new View.OnClickListener() {
@@ -120,8 +116,8 @@ public class AddEventActivity extends AppCompatActivity{
             }
         };
 
-        dropdown = findViewById(R.id.type);
-        String[] items = new String[]{"No Type", "Sport", "Party", "Outdoor", "Hangout", "Viewing", "Birthday", "Study"};
+        dropdown = (Spinner) findViewById(R.id.typeSpinner);
+        String[] items = getResources().getStringArray(R.array.spinner_items);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
 
@@ -129,13 +125,8 @@ public class AddEventActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if(isServicesOK()) {
+                    Log.d(TAG, "onClick: Services are fine starting maps");
                     Intent i = new Intent(AddEventActivity.this, MapActivity.class);
-//                    i.putExtra(Event.EVENT_NAME, nameText.getText().toString());
-//                    i.putExtra(Event.EVENT_CAPACITY, Integer.parseInt(capacityText.getText().toString()));
-//                    i.putExtra(Event.EVENT_DATE, dateResult.getText().toString());
-//                    i.putExtra(Event.EVENT_DESCRIPTION, descriptionText.getText().toString());
-//                    i.putExtra(Event.EVENT_TYPE, descriptionText.getText().toString());
-//                    i.putExtra(Event.EVENT_TIME, timeResult.getText().toString());
                     i.putExtra(MapActivity.CALLING_ACTIVITY, MapActivity.ADDEVENT_ACITIVTY);
                     startActivityForResult(i, REQUEST_CODE);
                 }
@@ -146,6 +137,7 @@ public class AddEventActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if(addEvent()) {
+                    Log.d(TAG, "onClick: Event Added successfully");
                     Toast.makeText(AddEventActivity.this, "Event Added Successfully", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(AddEventActivity.this, OptionsActivity.class);
                     startActivity(i);
@@ -204,6 +196,7 @@ public class AddEventActivity extends AppCompatActivity{
             return false;
         }
 
+        Log.d(TAG, "addEvent: Adding the Event");
         String userID = FirebaseAuth.getInstance().getUid();
         Event e = new Event(eventName, userID, eventCapacity, eventCoordinates, eventDate, eventTime, eventDescription, eventType);
         DataBaseCommunicator.saveEvent(e, userID);
@@ -216,7 +209,6 @@ public class AddEventActivity extends AppCompatActivity{
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(AddEventActivity.this);
 
         if(available == ConnectionResult.SUCCESS){
-            //everything is fine and the user can make map requests
             Log.d(TAG, "isServicesOK: Google Play Services is working");
             return true;
         }

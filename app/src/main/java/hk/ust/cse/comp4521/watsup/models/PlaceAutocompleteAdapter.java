@@ -1,4 +1,4 @@
-package hk.ust.cse.comp4521.watsup;
+package hk.ust.cse.comp4521.watsup.models;
 
 /*
  * Copyright (C) 2015 Google Inc. All Rights Reserved.

@@ -18,7 +18,7 @@
         android:contentDescription="@string/todo" />
 
     <EditText
-        android:id="@+id/eventNameText"
+        android:id="@+id/eventNameTextField"
         android:layout_width="204dp"
         android:layout_height="30dp"
         android:layout_alignParentStart="true"
@@ -35,13 +35,13 @@
         android:visibility="visible" />
 
     <EditText
-        android:id="@+id/eventCapacity"
+        android:id="@+id/eventCapacityTextField"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:layout_alignBaseline="@+id/eventNameText"
-        android:layout_alignBottom="@+id/eventNameText"
+        android:layout_alignBaseline="@+id/eventNameTextField"
+        android:layout_alignBottom="@+id/eventNameTextField"
         android:layout_marginStart="22dp"
-        android:layout_toEndOf="@+id/eventNameText"
+        android:layout_toEndOf="@+id/eventNameTextField"
         android:background="@android:drawable/screen_background_light_transparent"
         android:ellipsize="start"
         android:ems="10"
@@ -51,10 +51,10 @@
         android:singleLine="true" />
 
     <EditText
-        android:id="@+id/descriptionText"
+        android:id="@+id/descriptionTextField"
         android:layout_width="266dp"
         android:layout_height="60dp"
-        android:layout_below="@+id/eventCapacity"
+        android:layout_below="@+id/eventCapacityTextField"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
         android:background="@android:drawable/screen_background_light_transparent"
@@ -69,11 +69,11 @@
         android:singleLine="true" />
 
     <Button
-        android:id="@+id/dateText"
+        android:id="@+id/dateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/descriptionText"
-        android:layout_below="@+id/descriptionText"
+        android:layout_alignStart="@+id/descriptionTextField"
+        android:layout_below="@+id/descriptionTextField"
         android:layout_centerVertical="true"
         android:layout_marginStart="21dp"
         android:backgroundTint="@color/colorPrimary"
@@ -90,23 +90,23 @@
         android:text="@string/add_event" />
 
     <Button
-        android:id="@+id/timetext"
+        android:id="@+id/timeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/descriptionText"
-        android:layout_below="@+id/descriptionText"
+        android:layout_alignEnd="@+id/descriptionTextField"
+        android:layout_below="@+id/descriptionTextField"
         android:layout_centerVertical="true"
         android:layout_marginEnd="15dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="@string/time" />
 
     <Button
-        android:id="@+id/location"
+        android:id="@+id/locationButton"
         android:layout_width="300dp"
         android:layout_height="54dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
-        android:layout_below="@+id/type"
+        android:layout_below="@+id/typeSpinner"
         android:backgroundTint="@color/colorPrimary"
         android:text="@string/location" />
 
@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:hint="@string/type"
-        android:layout_below="@+id/dateText"
+        android:layout_below="@+id/dateTextView"
         android:layout_marginTop="22dp" />
 
 </RelativeLayout>

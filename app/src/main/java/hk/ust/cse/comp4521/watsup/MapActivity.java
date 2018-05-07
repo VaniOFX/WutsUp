@@ -1,6 +1,5 @@
 package hk.ust.cse.comp4521.watsup;
 
-import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -23,8 +22,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,9 +31,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.Place;
@@ -60,6 +55,7 @@ import java.util.List;
 
 import hk.ust.cse.comp4521.watsup.models.CustomInfoWindowAdapter;
 import hk.ust.cse.comp4521.watsup.models.Event;
+import hk.ust.cse.comp4521.watsup.models.PlaceAutocompleteAdapter;
 import hk.ust.cse.comp4521.watsup.models.PlaceInfo;
 
 

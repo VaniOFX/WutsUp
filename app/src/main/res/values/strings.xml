@@ -17,4 +17,14 @@
     <string name="time">Time</string>
     <string name="location">Location</string>
     <string name="successfulLocation">Location Selected Successfully</string>
+    <string-array name="spinner_items">
+        <item>No Type</item>
+        <item>Sport</item>
+        <item>Party</item>
+        <item>Outdoor</item>
+        <item>Hangout</item>
+        <item>Viewing</item>
+        <item>Birthday</item>
+        <item>Study</item>
+    </string-array>
 </resources>

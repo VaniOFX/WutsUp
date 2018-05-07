@@ -16,6 +16,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.InputStream;
 
+import static hk.ust.cse.comp4521.watsup.models.Activities.CALLING_ACTIVITY;
+import static hk.ust.cse.comp4521.watsup.models.Activities.ENROLLED_ACTIVITY;
+import static hk.ust.cse.comp4521.watsup.models.Activities.HOSTED_ACTIVITY;
+
 public class ProfileActivity extends AppCompatActivity {
 
     @Override
@@ -30,14 +34,14 @@ public class ProfileActivity extends AppCompatActivity {
         DataBaseCommunicator.setEnrolled(FirebaseAuth.getInstance().getUid());
 
 
-        TextView name = (TextView) findViewById(R.id.textView2);
-        name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-        Button enrolledEvents = (Button) findViewById(R.id.enrolledevents);
+        TextView profileName = (TextView) findViewById(R.id.profileName);
+        profileName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        Button enrolledEvents = (Button) findViewById(R.id.enrolledEvents);
         enrolledEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), EventListActivity.class);
-                i.putExtra(EventListActivity.CALLING_ACTIVITY,EventListActivity.ENROLLED_EVENTS);
+                i.putExtra(CALLING_ACTIVITY, ENROLLED_ACTIVITY);
                 startActivityForResult(i,1);
             }
         });
@@ -47,20 +51,15 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), EventListActivity.class);
-                i.putExtra(EventListActivity.CALLING_ACTIVITY,EventListActivity.HOSTED_EVENTS);
+                i.putExtra(CALLING_ACTIVITY, HOSTED_ACTIVITY);
                 startActivityForResult(i,1);
             }
         });
 
 
-        new DownloadImageTask((ImageView) findViewById(R.id.imageView4))
+        new DownloadImageTask((ImageView) findViewById(R.id.profileImageView))
                 .execute(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString());
 
-//        public void onClick(View v) {
-//            startActivity(new Intent(this, IndexActivity.class));
-//            finish();
-//
-//        }
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

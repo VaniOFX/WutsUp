@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import hk.ust.cse.comp4521.watsup.dummy.Observer;
+import hk.ust.cse.comp4521.watsup.models.Observer;
 import hk.ust.cse.comp4521.watsup.models.Event;
 
 public class DataBaseCommunicator {
@@ -41,6 +41,7 @@ public class DataBaseCommunicator {
         eventDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "onDataChange: Event Data changed updating");
                 events.clear();
                 eventsList.clear();
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
@@ -70,6 +71,7 @@ public class DataBaseCommunicator {
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "onDataChange: Data Successfully read once");
                 List<String> eventIds = new ArrayList<>();
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                     String e = ds.getValue(String.class);
