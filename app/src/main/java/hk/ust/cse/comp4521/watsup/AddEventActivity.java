@@ -160,7 +160,7 @@ public class AddEventActivity extends AppCompatActivity{
         if(requestCode == REQUEST_CODE){
             if(resultCode == Activity.RESULT_OK){
                 eventCoordinates = data.getStringExtra(Event.EVENT_COORDINATES);
-                locationButton.setText("Location Selected Successfully");
+                locationButton.setText(R.string.successfulLocation);
                 Log.d(TAG, "onActivityResult: "+ eventCoordinates);
             }
         }
@@ -206,7 +206,7 @@ public class AddEventActivity extends AppCompatActivity{
 
         String userID = FirebaseAuth.getInstance().getUid();
         Event e = new Event(eventName, userID, eventCapacity, eventCoordinates, eventDate, eventTime, eventDescription, eventType);
-        DataBaseCommunicator.saveEvent(e);
+        DataBaseCommunicator.saveEvent(e, userID);
         return true;
     }
 

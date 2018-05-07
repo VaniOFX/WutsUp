@@ -28,12 +28,12 @@ public class DataBaseCommunicator {
 
     public static List<Observer> observers = new ArrayList<>();
 
-    public static boolean saveEvent(Event e){
+    public static void saveEvent(Event e, String userID){
         DatabaseReference eventDB = FirebaseDatabase.getInstance().getReference("event");
         String eventID = eventDB.push().getKey();
         e.setEventID(eventID);
         eventDB.child(eventID).setValue(e);
-        return false;
+        enrollEvent(eventID, userID);
     }
 
     public static void setUpDataBase(){

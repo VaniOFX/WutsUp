@@ -14,9 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import hk.ust.cse.comp4521.watsup.dummy.Observer;
 import hk.ust.cse.comp4521.watsup.models.Event;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +40,9 @@ public class EventListActivity extends AppCompatActivity implements Observer {
     private static final String TAG = "EventListActivity";
     public static String CALLING_ACTIVITY = "calling_activity";
     public static String OPTIONS_ACTIVITY = "options_activity";
-    public static String PROFILE_ACTIVITY = "profile_activity";
+    public static String ENROLLED_EVENTS = "enrolled_events";
+    public static String HOSTED_EVENTS = "hosted_events";
+
 
     private boolean mTwoPane;
     public static List<Event> eventsToBeShown;
@@ -50,13 +55,22 @@ public class EventListActivity extends AppCompatActivity implements Observer {
         DataBaseCommunicator.addObserver(this);
 
         String callingActivity = getIntent().getStringExtra(EventListActivity.CALLING_ACTIVITY);
+        if(callingActivity != null) {
+            if (callingActivity.equals(OPTIONS_ACTIVITY)) {
+                eventsToBeShown = DataBaseCommunicator.eventsList;
+            } else if (callingActivity.equals(ENROLLED_EVENTS)) {
+                eventsToBeShown = DataBaseCommunicator.enrolledEvents;
+            } else if (callingActivity.equals(HOSTED_EVENTS)) {
+                eventsToBeShown = new ArrayList<>();
+                String userID = FirebaseAuth.getInstance().getUid();
+                for (Event e : DataBaseCommunicator.eventsList) {
+                    if (e.getUserID().equals(userID)) {
+                        eventsToBeShown.add(e);
+                    }
+                }
+            }
+        }
 
-        if(callingActivity.equals(OPTIONS_ACTIVITY)){
-            eventsToBeShown = DataBaseCommunicator.eventsList;
-        }
-        else if(callingActivity.equals(PROFILE_ACTIVITY)){
-            eventsToBeShown = DataBaseCommunicator.enrolledEvents;
-        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

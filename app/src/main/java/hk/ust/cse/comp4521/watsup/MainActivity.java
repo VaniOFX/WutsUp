@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
                                 new AuthUI.IdpConfig.EmailBuilder().build(),
                                 new AuthUI.IdpConfig.GoogleBuilder().build(),
                                 new AuthUI.IdpConfig.FacebookBuilder().build()))
+                        .setLogo(R.drawable.web_hi_res_512)
                         .build(),
                 RC_SIGN_IN);
         } else {

@@ -16,4 +16,5 @@
     <string name="type">Type</string>
     <string name="time">Time</string>
     <string name="location">Location</string>
+    <string name="successfulLocation">Location Selected Successfully</string>
 </resources>
