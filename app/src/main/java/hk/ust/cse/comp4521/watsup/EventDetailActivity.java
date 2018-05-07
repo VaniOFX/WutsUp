@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 /**
  * An activity representing a single Event detail screen. This
  * activity is only used on narrow width devices. On tablet-size devices,
@@ -29,8 +31,10 @@ public class EventDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                int index = getIntent().getIntExtra(EventDetailFragment.ARG_ITEM_ID, -1);
+                String userID = FirebaseAuth.getInstance().getUid();
+                if(index != -1)
+                    DataBaseCommunicator.enrollEvent(EventListActivity.eventsToBeShown.get(index).getEventID(), userID);
             }
         });
 
@@ -53,8 +57,8 @@ public class EventDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(EventDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(EventDetailFragment.ARG_ITEM_ID));
+            arguments.putInt(EventDetailFragment.ARG_ITEM_ID,
+                    getIntent().getIntExtra(EventDetailFragment.ARG_ITEM_ID, -1));
             EventDetailFragment fragment = new EventDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

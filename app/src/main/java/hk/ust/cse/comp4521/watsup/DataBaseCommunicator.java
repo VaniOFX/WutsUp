@@ -1,5 +1,7 @@
 package hk.ust.cse.comp4521.watsup;
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -7,14 +9,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import hk.ust.cse.comp4521.watsup.dummy.Observer;
 import hk.ust.cse.comp4521.watsup.models.Event;
 
 public class DataBaseCommunicator {
 
-    public static List<Event> events = new ArrayList<>();
+    private static final String TAG = "DataBaseCommunicator";
+
+    public static Map<String, Event> events = new HashMap<>();
+
+    public static List<Event> eventsList = new ArrayList<>();
+
+    public static List<Event> enrolledEvents = new ArrayList<>();
 
     public static List<Observer> observers = new ArrayList<>();
 
@@ -32,9 +42,11 @@ public class DataBaseCommunicator {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 events.clear();
+                eventsList.clear();
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                     Event e = ds.getValue(Event.class);
-                    events.add(e);
+                    events.put(e.getEventID(), e);
+                    eventsList.add(e);
                 }
                 notifyObservers();
             }
@@ -44,6 +56,39 @@ public class DataBaseCommunicator {
 
             }
         });
+    }
+
+    public static void enrollEvent(String eventID, String userID){
+        DatabaseReference eventDB = FirebaseDatabase.getInstance().getReference("enrolled");
+        eventDB.child("events").child(eventID).child(userID).setValue(userID);
+        eventDB.child("users").child(userID).child(eventID).setValue(eventID);
+    }
+
+    public static void setEnrolled(String userID){
+        DatabaseReference eventDB = FirebaseDatabase.getInstance().getReference("enrolled/users/"+userID);
+        enrolledEvents.clear();
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> eventIds = new ArrayList<>();
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    String e = ds.getValue(String.class);
+                    eventIds.add(e);
+                }
+
+                for(String id: eventIds){
+                    enrolledEvents.add(events.get(id));
+                }
+                notifyObservers();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        eventDB.addListenerForSingleValueEvent(listener);
+
     }
 
     public static void addObserver(Observer o){

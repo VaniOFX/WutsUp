@@ -382,8 +382,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
         markerMap = new HashMap<>();
 
-        for(int i = 0; i < DataBaseCommunicator.events.size(); i++){
-            Event e = DataBaseCommunicator.events.get(i);
+        for(int i = 0; i < EventListActivity.eventsToBeShown.size(); i++){
+            Event e = EventListActivity.eventsToBeShown.get(i);
             String[] latLng = e.getCoordinates().split(",");
             String snippet = "Capacity: " + e.getCapacity() + "\n" +
                     "Date: " + e.getDate() + "\n" +
