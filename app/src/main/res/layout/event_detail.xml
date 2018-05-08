@@ -1,10 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/event_detail"
-    style="?android:attr/textAppearanceLarge"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context=".EventDetailFragment" />
+    tools:context=".ProfileActivity">
+
+
+    <EditText
+        android:id="@+id/editText9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Capacity"
+        android:textSize="@dimen/browser_actions_context_menu_min_padding" />
+
+    <EditText
+        android:id="@+id/editText13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView7"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Time"
+        android:textSize="@dimen/browser_actions_context_menu_min_padding" />
+
+    <EditText
+        android:id="@+id/editText12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView6"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Date"
+        android:textSize="@dimen/browser_actions_context_menu_min_padding" />
+
+    <EditText
+        android:id="@+id/editText11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView5"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Location"
+        android:textSize="@dimen/browser_actions_context_menu_min_padding" />
+
+    <EditText
+        android:id="@+id/editText10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editText8"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Description"
+        android:textSize="@dimen/browser_actions_context_menu_min_padding" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editText13"
+        android:autoSizeMaxTextSize="@dimen/com_facebook_likeboxcountview_text_size"
+        android:text="Description" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/editText9"
+        android:layout_centerHorizontal="true"
+        android:autoSizeMaxTextSize="@dimen/com_facebook_likeboxcountview_text_size"
+        android:text="Description" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editText12"
+        android:autoSizeMaxTextSize="@dimen/com_facebook_likeboxcountview_text_size"
+        android:text="Description" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView5"
+        android:layout_marginTop="48dp"
+        android:autoSizeMaxTextSize="@dimen/com_facebook_likeboxcountview_text_size"
+        android:text="Description" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editText10"
+        android:autoSizeMaxTextSize="@dimen/com_facebook_likeboxcountview_text_size"
+        android:text="Description" />
+
+</RelativeLayout>

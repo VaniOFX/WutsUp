@@ -10,8 +10,14 @@ import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class EventDetailActivity extends AppCompatActivity {
@@ -29,10 +35,37 @@ public class EventDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int index = getIntent().getIntExtra(EventDetailFragment.ARG_ITEM_ID, -1);
-                String userID = FirebaseAuth.getInstance().getUid();
-                if(index != -1)
-                    DataBaseCommunicator.enrollEvent(EventListActivity.eventsToBeShown.get(index).getEventID(), userID);
+                final int index = getIntent().getIntExtra(EventDetailFragment.ARG_ITEM_ID, -1);
+                if(index != -1){
+                    final String userID = FirebaseAuth.getInstance().getUid();
+                    final String eventID = EventListActivity.eventsToBeShown.get(index).getEventID();
+
+                    DatabaseReference enrolledDB = FirebaseDatabase.getInstance().getReference("enrolled/events/"+eventID);
+                    enrolledDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.getChildrenCount() < Integer.parseInt(EventListActivity.eventsToBeShown.get(index).getCapacity())){
+                                Log.d(TAG, "onClick: Enrolled event successfully");
+                                DatabaseReference enrolledDB = FirebaseDatabase.getInstance().getReference("enrolled");
+                                enrolledDB.child("events").child(eventID).child(userID).setValue(userID);
+                                enrolledDB.child("users").child(userID).child(eventID).setValue(eventID);
+                                Toast.makeText(EventDetailActivity.this, "You have enrolled the event successfully.", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(EventDetailActivity.this, OptionsActivity.class);
+                                startActivity(i);
+                            }
+                            else{
+                                Toast.makeText(EventDetailActivity.this, "The event is full. You cannot enroll.", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
             }
         });
 

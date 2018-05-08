@@ -6,4 +6,5 @@ public class Activities {
     public static int ENROLLED_ACTIVITY = 1;
     public static int HOSTED_ACTIVITY = 2;
     public static int EXPLORE_ACTIVITY = 3;
+    public static int ADDEVENT_ACTIVITY = 4;
 }

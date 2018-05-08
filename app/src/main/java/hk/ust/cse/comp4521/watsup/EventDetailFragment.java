@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import hk.ust.cse.comp4521.watsup.dummy.EventContent;
 import hk.ust.cse.comp4521.watsup.models.Event;
 
 /**
@@ -62,7 +61,7 @@ public class EventDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.event_detail)).setText(mItem.getDescription());
+//            ((TextView) rootView.findViewById(R.id.event_detail)).setText(mItem.getDescription());
         }
 
         return rootView;

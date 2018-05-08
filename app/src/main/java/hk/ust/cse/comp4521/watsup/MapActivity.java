@@ -53,10 +53,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import hk.ust.cse.comp4521.watsup.models.Activities;
 import hk.ust.cse.comp4521.watsup.models.CustomInfoWindowAdapter;
 import hk.ust.cse.comp4521.watsup.models.Event;
 import hk.ust.cse.comp4521.watsup.models.PlaceAutocompleteAdapter;
 import hk.ust.cse.comp4521.watsup.models.PlaceInfo;
+
+import static hk.ust.cse.comp4521.watsup.models.Activities.CALLING_ACTIVITY;
+import static hk.ust.cse.comp4521.watsup.models.Activities.EXPLORE_ACTIVITY;
 
 
 /**
@@ -82,7 +86,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 moveCamera(latLng, mMap.getCameraPosition().zoom, "Choose Location");
             }
         });
-
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
 
@@ -94,7 +97,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
-            if(callingActivity.equals(MapActivity.EXPLORE_ACTIVITY)){
+            if(callingActivity == EXPLORE_ACTIVITY){
                 Log.d(TAG, "onCreate: The calling activity is EXPLORE ACTIVITY");
                 findViewById(R.id.relLayout1).setVisibility(View.GONE);
                 findViewById(R.id.doneButton).setVisibility(View.GONE);
@@ -107,9 +110,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private static final String TAG = "MapActivity";
 
-    public static final String CALLING_ACTIVITY = "Calling activity";
-    public static final String ADDEVENT_ACITIVTY = "add event activity";
-    public static final String EXPLORE_ACTIVITY = "explore events activity";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
@@ -130,7 +130,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private GoogleApiClient mGoogleApiClient;
     private PlaceInfo mPlace;
     private LatLng lastCoordinates;
-    private String callingActivity = "DefaultValue";
+    private int callingActivity;
     private HashMap<Marker, Integer> markerMap;
 
     @Override
@@ -138,8 +138,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         mSearchText = (AutoCompleteTextView) findViewById(R.id.inputSearch);
-//        mGps = (ImageView) findViewById(R.id.ic_gps);
-        callingActivity = getIntent().getStringExtra(MapActivity.CALLING_ACTIVITY);
+        mGps = (ImageView) findViewById(R.id.ic_gps);
+        callingActivity = getIntent().getIntExtra(CALLING_ACTIVITY, -1);
 
         FloatingActionButton doneButton = findViewById(R.id.doneButton);
         doneButton.setOnClickListener(new View.OnClickListener() {
@@ -164,11 +164,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void getDeviceLocation(){
         Log.d(TAG, "getDeviceLocation: getting the devices current location");
-
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
         try{
-
             if(mLocationPermissionsGranted){
                 mFusedLocationProviderClient.requestLocationUpdates(new LocationRequest(),
                         PendingIntent.getBroadcast(this,
@@ -236,13 +233,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-//        mGps.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d(TAG, "onClick: clicked gps icon");
-//                getDeviceLocation();
-//            }
-//        });
+        mGps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: clicked gps icon");
+                getDeviceLocation();
+            }
+        });
 
         hideSoftKeyboard();
     }
@@ -349,7 +346,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void moveCamera(LatLng latLng, float zoom, String title){
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
-        if(!callingActivity.equals(MapActivity.EXPLORE_ACTIVITY)){
+        if(callingActivity != EXPLORE_ACTIVITY){
             mMap.clear();
             if (!title.equals("My Location")) {
                 MarkerOptions options = new MarkerOptions()
@@ -426,45 +423,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 return;
             }
             final Place place = places.get(0);
-
-            try{
-                mPlace = new PlaceInfo();
-                mPlace.setName(place.getName().toString());
-                Log.d(TAG, "onResult: name: " + place.getName());
-                mPlace.setAddress(place.getAddress().toString());
-                Log.d(TAG, "onResult: address: " + place.getAddress());
-//                mPlace.setAttributions(place.getAttributions().toString());
-//                Log.d(TAG, "onResult: attributions: " + place.getAttributions());
-                mPlace.setId(place.getId());
-                Log.d(TAG, "onResult: id:" + place.getId());
-                mPlace.setLatlng(place.getLatLng());
-                Log.d(TAG, "onResult: latlng: " + place.getLatLng());
-                mPlace.setRating(place.getRating());
-                Log.d(TAG, "onResult: rating: " + place.getRating());
-                mPlace.setPhoneNumber(place.getPhoneNumber().toString());
-                Log.d(TAG, "onResult: phone number: " + place.getPhoneNumber());
-                mPlace.setWebsiteUri(place.getWebsiteUri());
-                Log.d(TAG, "onResult: website uri: " + place.getWebsiteUri());
-
-                Log.d(TAG, "onResult: place: " + mPlace.toString());
-            }catch (NullPointerException e){
-                Log.e(TAG, "onResult: NullPointerException: " + e.getMessage() );
-            }
-
             moveCamera(new LatLng(place.getViewport().getCenter().latitude,
-                    place.getViewport().getCenter().longitude), DEFAULT_ZOOM, mPlace.getName());
-
+                    place.getViewport().getCenter().longitude), DEFAULT_ZOOM, place.getName().toString());
             places.release();
         }
     };
 }
-
-
-
-
-
-
-
-
-
-

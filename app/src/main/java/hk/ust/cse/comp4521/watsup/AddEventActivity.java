@@ -29,6 +29,9 @@ import java.util.Calendar;
 
 import hk.ust.cse.comp4521.watsup.models.Event;
 
+import static hk.ust.cse.comp4521.watsup.models.Activities.ADDEVENT_ACTIVITY;
+import static hk.ust.cse.comp4521.watsup.models.Activities.CALLING_ACTIVITY;
+
 public class AddEventActivity extends AppCompatActivity{
 
 
@@ -116,7 +119,7 @@ public class AddEventActivity extends AppCompatActivity{
             }
         };
 
-        dropdown = (Spinner) findViewById(R.id.typeSpinner);
+        dropdown = findViewById(R.id.typeSpinner);
         String[] items = getResources().getStringArray(R.array.spinner_items);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
@@ -127,7 +130,7 @@ public class AddEventActivity extends AppCompatActivity{
                 if(isServicesOK()) {
                     Log.d(TAG, "onClick: Services are fine starting maps");
                     Intent i = new Intent(AddEventActivity.this, MapActivity.class);
-                    i.putExtra(MapActivity.CALLING_ACTIVITY, MapActivity.ADDEVENT_ACITIVTY);
+                    i.putExtra(CALLING_ACTIVITY, ADDEVENT_ACTIVITY);
                     startActivityForResult(i, REQUEST_CODE);
                 }
             }

@@ -60,13 +60,13 @@ public class DataBaseCommunicator {
     }
 
     public static void enrollEvent(String eventID, String userID){
-        DatabaseReference eventDB = FirebaseDatabase.getInstance().getReference("enrolled");
-        eventDB.child("events").child(eventID).child(userID).setValue(userID);
-        eventDB.child("users").child(userID).child(eventID).setValue(eventID);
+        DatabaseReference enrolledDB = FirebaseDatabase.getInstance().getReference("enrolled");
+        enrolledDB.child("events").child(eventID).child(userID).setValue(userID);
+        enrolledDB.child("users").child(userID).child(eventID).setValue(eventID);
     }
 
     public static void setEnrolled(String userID){
-        DatabaseReference eventDB = FirebaseDatabase.getInstance().getReference("enrolled/users/"+userID);
+        DatabaseReference enrolledDB = FirebaseDatabase.getInstance().getReference("enrolled/users/"+userID);
         enrolledEvents.clear();
         ValueEventListener listener = new ValueEventListener() {
             @Override
@@ -89,7 +89,7 @@ public class DataBaseCommunicator {
 
             }
         };
-        eventDB.addListenerForSingleValueEvent(listener);
+        enrolledDB.addListenerForSingleValueEvent(listener);
 
     }
 

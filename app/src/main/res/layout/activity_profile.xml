@@ -49,7 +49,7 @@
         android:textSize="20sp" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/profileImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_above="@+id/profileName"

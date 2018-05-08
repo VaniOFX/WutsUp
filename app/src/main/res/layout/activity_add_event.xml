@@ -111,12 +111,12 @@
         android:text="@string/location" />
 
     <Spinner
-        android:id="@+id/type"
+        android:id="@+id/typeSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:hint="@string/type"
         android:layout_below="@+id/dateTextView"
-        android:layout_marginTop="22dp" />
+        android:layout_marginTop="22dp"
+        android:hint="@string/type" />
 
 </RelativeLayout>

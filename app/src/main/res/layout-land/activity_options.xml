@@ -33,13 +33,13 @@
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/imageButton6"
+        android:layout_alignStart="@+id/imageButtonProfile"
         android:layout_marginBottom="65dp"
         android:background="@android:color/holo_blue_bright"
         android:text="Profile" />
 
     <ImageButton
-        android:id="@+id/imageButton5"
+        android:id="@+id/imageButtonAddEvent"
         android:layout_width="110dp"
         android:layout_height="100dp"
         android:layout_above="@+id/addevent"
@@ -50,10 +50,10 @@
         app:srcCompat="@drawable/calicon" />
 
     <ImageButton
-        android:id="@+id/imageButton6"
+        android:id="@+id/imageButtonProfile"
         android:layout_width="110dp"
         android:layout_height="100dp"
-        android:layout_alignTop="@+id/imageButton5"
+        android:layout_alignTop="@+id/imageButtonAddEvent"
         android:layout_marginStart="60dp"
         android:layout_toEndOf="@+id/explorebutton"
         android:background="@color/colorPrimaryDark"
@@ -61,10 +61,10 @@
         app:srcCompat="@drawable/profilelogo" />
 
     <ImageButton
-        android:id="@+id/imageButton9"
+        android:id="@+id/imageButtonExplore"
         android:layout_width="110dp"
         android:layout_height="100dp"
-        android:layout_alignTop="@+id/imageButton6"
+        android:layout_alignTop="@+id/imageButtonProfile"
         android:layout_centerHorizontal="true"
         android:background="@color/colorPrimaryDark"
         android:scaleType="fitXY"
