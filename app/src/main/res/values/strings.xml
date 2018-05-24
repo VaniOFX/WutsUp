@@ -17,6 +17,12 @@
     <string name="time">Time</string>
     <string name="location">Location</string>
     <string name="successfulLocation">Location Selected Successfully</string>
+    <string name="eventDetailDescription">Description:</string>
+    <string name="eventDetailType">Type:</string>
+    <string name="eventDetailName">Name:</string>
+    <string name="eventDetailDateTime">Date and Time:</string>
+    <string name="eventDetailLocation">See Location</string>
+
     <string-array name="spinner_items">
         <item>No Type</item>
         <item>Sport</item>

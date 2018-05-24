@@ -16,13 +16,6 @@ public class OptionsActivity extends AppCompatActivity {
 
     private static final String TAG = "OptionsActivity";
 
-    ImageButton imageButtonAE;
-    ImageButton imageButtonExplore;
-    ImageButton imageButtonProfile;
-
-    ImageButton imageButtonAddL;
-    ImageButton imageButtonExL;
-    ImageButton imageButtonProfL;
 
     View.OnClickListener addEventButtonListener = new View.OnClickListener() {
         @Override
@@ -70,54 +63,6 @@ public class OptionsActivity extends AppCompatActivity {
         exploreImageButton.setOnClickListener(exploreButtonListener);
         profileImageButton.setOnClickListener(profileButtonListener);
 
+        }
 
-//        checkOrientation(this.getResources().getConfiguration());
-    }
-
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//        Log.d(TAG, "onConfigurationChanged called.");
-//        checkOrientation(newConfig);
-//    }
-//
-//    private void checkOrientation(Configuration newConfig) {
-//        Log.d(TAG, "checkOrientation: The Configuration has changed");
-//        switch (newConfig.orientation) {
-//
-//            case Configuration.ORIENTATION_PORTRAIT:
-//                setContentView(R.layout.activity_options);
-//                imageButtonAE = (ImageButton) findViewById(R.id.imageButtonAddEvent);
-//                imageButtonExplore = (ImageButton) findViewById(R.id.imageButtonExplore);
-//                imageButtonProfile = (ImageButton) findViewById(R.id.imageButtonProfile);
-//
-//                if(!imageButtonAE.hasOnClickListeners())
-//                    imageButtonAE.setOnClickListener(addEventButtonListener);
-//
-//                if(!imageButtonExplore.hasOnClickListeners())
-//                    imageButtonExplore.setOnClickListener(exploreButtonListener);
-//
-//                if(!imageButtonProfile.hasOnClickListeners())
-//                    imageButtonExplore.setOnClickListener(profileButtonListener);
-//
-//                break;
-//
-//            case Configuration.ORIENTATION_LANDSCAPE:
-//                setContentView(R.layout.activity_options);
-//                imageButtonAddL = (ImageButton) findViewById(R.id.imageButtonAddEvent);
-//                imageButtonExL = (ImageButton) findViewById(R.id.imageButtonExplore);
-//                imageButtonProfL = (ImageButton) findViewById(R.id.imageButtonProfile);
-//
-//                if(!imageButtonAddL.hasOnClickListeners())
-//                    imageButtonAddL.setOnClickListener(addEventButtonListener);
-//
-//                if(!imageButtonExL.hasOnClickListeners())
-//                    imageButtonExL.setOnClickListener(exploreButtonListener);
-//
-//                if(!imageButtonProfL.hasOnClickListeners())
-//                    imageButtonProfL.setOnClickListener(profileButtonListener);
-//
-//                break;
-//        }
-//    }
 }

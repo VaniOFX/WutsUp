@@ -53,19 +53,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import hk.ust.cse.comp4521.watsup.models.Activities;
 import hk.ust.cse.comp4521.watsup.models.CustomInfoWindowAdapter;
 import hk.ust.cse.comp4521.watsup.models.Event;
 import hk.ust.cse.comp4521.watsup.models.PlaceAutocompleteAdapter;
-import hk.ust.cse.comp4521.watsup.models.PlaceInfo;
 
 import static hk.ust.cse.comp4521.watsup.models.Activities.CALLING_ACTIVITY;
+import static hk.ust.cse.comp4521.watsup.models.Activities.EVENT_DETAILS;
 import static hk.ust.cse.comp4521.watsup.models.Activities.EXPLORE_ACTIVITY;
 
-
-/**
- * Created by User on 10/2/2017.
- */
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.OnConnectionFailedListener{
@@ -103,6 +98,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 findViewById(R.id.doneButton).setVisibility(View.GONE);
                 putMarkers();
             }
+            else if(callingActivity == EVENT_DETAILS){
+                findViewById(R.id.relLayout1).setVisibility(View.GONE);
+                findViewById(R.id.doneButton).setVisibility(View.GONE);
+                String[] coordinates = getIntent().getStringExtra("coordinates").split(",");
+
+                moveCamera(new LatLng(Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1])),DEFAULT_ZOOM,"Selected Event");
+                MarkerOptions options = new MarkerOptions()
+                        .position(new LatLng(Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1])));
+                mMap.addMarker(options);
+            }
 
             init();
         }
@@ -128,8 +133,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
     private GoogleApiClient mGoogleApiClient;
-    private PlaceInfo mPlace;
-    private LatLng lastCoordinates;
+        private LatLng lastCoordinates;
     private int callingActivity;
     private HashMap<Marker, Integer> markerMap;
 
@@ -157,8 +161,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         });
-
-
         getLocationPermission();
     }
 
@@ -244,7 +246,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         hideSoftKeyboard();
     }
 
-    private void geoLocate(){
+    private void ygeoLocate(){
         Log.d(TAG, "geoLocate: geolocating");
 
         String searchString = mSearchText.getText().toString();
@@ -346,7 +348,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void moveCamera(LatLng latLng, float zoom, String title){
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
-        if(callingActivity != EXPLORE_ACTIVITY){
+        if(callingActivity != EXPLORE_ACTIVITY && callingActivity != EVENT_DETAILS){
             mMap.clear();
             if (!title.equals("My Location")) {
                 MarkerOptions options = new MarkerOptions()
@@ -395,10 +397,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         }
     }
-
-    /*
-        --------------------------- google places API autocomplete suggestions -----------------
-     */
 
     private AdapterView.OnItemClickListener mAutocompleteClickListener = new AdapterView.OnItemClickListener() {
         @Override

@@ -34,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
                 RC_SIGN_IN);
         } else {
             Intent i = new Intent(this, OptionsActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
+            finish();
         }
     }
 
@@ -45,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
                 Intent i = new Intent(this, OptionsActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
-            } else {
+                finish();
 
             }
         }

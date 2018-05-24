@@ -51,6 +51,7 @@ public class EventDetailActivity extends AppCompatActivity {
                                 enrolledDB.child("users").child(userID).child(eventID).setValue(eventID);
                                 Toast.makeText(EventDetailActivity.this, "You have enrolled the event successfully.", Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(EventDetailActivity.this, OptionsActivity.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(i);
                             }
                             else{
@@ -90,12 +91,6 @@ public class EventDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            // This ID represents the Home or Up button. In the case of this
-            // activity, the Up button is shown. For
-            // more details, see the Navigation pattern on Android Design:
-            //
-            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-            //
             navigateUpTo(new Intent(this, EventListActivity.class));
             return true;
         }

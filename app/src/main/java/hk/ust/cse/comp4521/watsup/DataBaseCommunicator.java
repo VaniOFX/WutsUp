@@ -36,7 +36,7 @@ public class DataBaseCommunicator {
         enrollEvent(eventID, userID);
     }
 
-    public static void setUpDataBase(){
+    public static void getEventsList(){
         DatabaseReference eventDB = FirebaseDatabase.getInstance().getReference("event");
         eventDB.addValueEventListener(new ValueEventListener() {
             @Override

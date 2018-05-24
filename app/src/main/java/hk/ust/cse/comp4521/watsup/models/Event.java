@@ -84,7 +84,10 @@ public class Event {
     }
 
     public String getContent(){
-        return "content";
+        return "Event Name:" + name + "\n" +
+                "Event Date and Time:" + date + " - " + time + "\n" +
+                "Event Type:" + type + "\n" +
+                "Event Description:\n" + description;
     }
 
     public String getDescription() {

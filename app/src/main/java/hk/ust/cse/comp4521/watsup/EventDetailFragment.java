@@ -1,15 +1,21 @@
 package hk.ust.cse.comp4521.watsup;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import hk.ust.cse.comp4521.watsup.models.Event;
+
+import static hk.ust.cse.comp4521.watsup.models.Activities.CALLING_ACTIVITY;
+import static hk.ust.cse.comp4521.watsup.models.Activities.EVENT_DETAILS;
 
 /**
  * A fragment representing a single Event detail screen.
@@ -59,9 +65,30 @@ public class EventDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.event_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
         if (mItem != null) {
-//            ((TextView) rootView.findViewById(R.id.event_detail)).setText(mItem.getDescription());
+            Button locationButton = (Button) rootView.findViewById(R.id.locationButton);
+
+            Typeface pacifico = Typeface.createFromAsset(getContext().getAssets(), "fonts/pacifico.ttf");
+            ((TextView) rootView.findViewById(R.id.eventName)).setTypeface(pacifico);
+            ((TextView) rootView.findViewById(R.id.eventDescription)).setTypeface(pacifico);
+            ((TextView) rootView.findViewById(R.id.eventDate)).setTypeface(pacifico);
+            ((TextView) rootView.findViewById(R.id.eventType)).setTypeface(pacifico);
+            locationButton.setTypeface(pacifico);
+
+            ((TextView) rootView.findViewById(R.id.eventNameContent)).setText(mItem.getName());
+            ((TextView) rootView.findViewById(R.id.eventDateContent)).setText(mItem.getDate() + " - " + mItem.getTime());
+            ((TextView) rootView.findViewById(R.id.eventTypeContent)).setText(mItem.getType());
+            ((TextView) rootView.findViewById(R.id.eventDescriptionContent)).setText(mItem.getDescription());
+            locationButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getContext(), MapActivity.class);
+                    i.putExtra(CALLING_ACTIVITY, EVENT_DETAILS);
+                    i.putExtra("coordinates",mItem.getCoordinates());
+                    startActivity(i);
+                }
+            });
+
         }
 
         return rootView;

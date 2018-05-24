@@ -143,6 +143,7 @@ public class AddEventActivity extends AppCompatActivity{
                     Log.d(TAG, "onClick: Event Added successfully");
                     Toast.makeText(AddEventActivity.this, "Event Added Successfully", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(AddEventActivity.this, OptionsActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i);
                 }
             }

@@ -50,7 +50,7 @@ public class EventListActivity extends AppCompatActivity implements Observer {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(EventListActivity.this, MapActivity.class);
-                i.putExtra(CALLING_ACTIVITY,EXPLORE_ACTIVITY);
+                i.putExtra(CALLING_ACTIVITY, EXPLORE_ACTIVITY);
                 startActivity(i);
             }
         });
@@ -82,7 +82,7 @@ public class EventListActivity extends AppCompatActivity implements Observer {
     protected void onStart(){
         super.onStart();
         Log.d(TAG, "onStart: add observer");
-        DataBaseCommunicator.setUpDataBase();
+        DataBaseCommunicator.getEventsList();
     }
 
     @Override
