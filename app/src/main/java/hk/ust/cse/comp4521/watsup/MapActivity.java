@@ -61,6 +61,13 @@ import static hk.ust.cse.comp4521.watsup.models.Activities.CALLING_ACTIVITY;
 import static hk.ust.cse.comp4521.watsup.models.Activities.EVENT_DETAILS;
 import static hk.ust.cse.comp4521.watsup.models.Activities.EXPLORE_ACTIVITY;
 
+//# COMP 4521    #  YOUR FULL NAME        STUDENT ID          EMAIL ADDRESS
+//         1.       Ivan Bardarov         20501426            iebardarov@connect.ust.hk
+//         2.       Danny Nsouli          20531407            dmansouli@connect.ust.hk
+
+
+
+
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.OnConnectionFailedListener{

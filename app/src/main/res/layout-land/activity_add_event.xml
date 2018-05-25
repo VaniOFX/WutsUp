@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+//# COMP 4521    #  YOUR FULL NAME        STUDENT ID          EMAIL ADDRESS
+//         1.       Ivan Bardarov         20501426            iebardarov@connect.ust.hk
+//         2.       Danny Nsouli          20531407            dmansouli@connect.ust.hk
+    -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,7 +19,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/eventcreator" />
+        app:srcCompat="@drawable/eventcreator"
+        android:contentDescription="@string/todo" />
 
     <EditText
         android:id="@+id/eventNameTextField"
@@ -26,7 +32,7 @@
         android:ellipsize="start"
         android:ems="10"
         android:gravity="center_horizontal|fill_horizontal"
-        android:hint="Name"
+        android:hint="@string/name"
         android:inputType="textPersonName"
         android:singleLine="true"
         android:visibility="visible" />
@@ -41,7 +47,7 @@
         android:ellipsize="start"
         android:ems="10"
         android:gravity="center_horizontal|fill_horizontal"
-        android:hint="Capacity"
+        android:hint="@string/capacity"
         android:inputType="numberDecimal"
         android:singleLine="true" />
 
@@ -55,7 +61,7 @@
         android:ellipsize="start"
         android:ems="10"
         android:gravity="fill_horizontal"
-        android:hint="Description"
+        android:hint="@string/description"
         android:inputType="textMultiLine"
         android:lines="8"
         android:maxLines="10"
@@ -69,7 +75,7 @@
         android:layout_below="@+id/imageView2"
         android:layout_toStartOf="@+id/timeTextView"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Date" />
+        android:text="@string/date" />
 
     <Button
         android:id="@+id/addEventButton"
@@ -79,7 +85,7 @@
         android:layout_alignParentStart="true"
         android:layout_gravity="center_vertical"
         android:background="@color/colorPrimary"
-        android:text="Add Event" />
+        android:text="@string/add_event" />
 
     <Button
         android:id="@+id/timeTextView"
@@ -89,7 +95,7 @@
         android:layout_below="@+id/imageView2"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Time" />
+        android:text="@string/time" />
 
     <Button
         android:id="@+id/locationButton"
@@ -98,7 +104,7 @@
         android:layout_alignBottom="@+id/descriptionTextField"
         android:layout_alignEnd="@+id/typeSpinner"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Location" />
+        android:text="@string/location" />
 
     <Spinner
         android:id="@+id/typeSpinner"
@@ -106,6 +112,6 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/dateTextView"
         android:layout_centerVertical="true"
-        android:hint="Type" />
+        android:hint="@string/type" />
 
 </RelativeLayout>

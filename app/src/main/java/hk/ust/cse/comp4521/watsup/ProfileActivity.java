@@ -45,6 +45,12 @@ import static hk.ust.cse.comp4521.watsup.models.Activities.CALLING_ACTIVITY;
 import static hk.ust.cse.comp4521.watsup.models.Activities.ENROLLED_ACTIVITY;
 import static hk.ust.cse.comp4521.watsup.models.Activities.HOSTED_ACTIVITY;
 
+//# COMP 4521    #  YOUR FULL NAME        STUDENT ID          EMAIL ADDRESS
+//         1.       Ivan Bardarov         20501426            iebardarov@connect.ust.hk
+//         2.       Danny Nsouli          20531407            dmansouli@connect.ust.hk
+
+
+
 public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "ProfileActivity";

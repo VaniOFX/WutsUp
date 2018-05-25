@@ -17,28 +17,16 @@ import hk.ust.cse.comp4521.watsup.models.Event;
 import static hk.ust.cse.comp4521.watsup.models.Activities.CALLING_ACTIVITY;
 import static hk.ust.cse.comp4521.watsup.models.Activities.EVENT_DETAILS;
 
-/**
- * A fragment representing a single Event detail screen.
- * This fragment is either contained in a {@link EventListActivity}
- * in two-pane mode (on tablets) or a {@link EventDetailActivity}
- * on handsets.
- */
-public class EventDetailFragment extends Fragment {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
-    public static final String ARG_ITEM_ID = "item_id";
+//# COMP 4521    #  YOUR FULL NAME        STUDENT ID          EMAIL ADDRESS
+//         1.       Ivan Bardarov         20501426            iebardarov@connect.ust.hk
+//         2.       Danny Nsouli          20531407            dmansouli@connect.ust.hk
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
+
+public class EventDetailFragment extends Fragment {
+
+    public static final String ARG_ITEM_ID = "item_id";
     private Event mItem;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public EventDetailFragment() {
     }
 
@@ -47,9 +35,6 @@ public class EventDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
             mItem = EventListActivity.eventsToBeShown.get(getArguments().getInt(ARG_ITEM_ID));
 
             Activity activity = this.getActivity();

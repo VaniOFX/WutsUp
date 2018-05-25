@@ -22,6 +22,22 @@
     <string name="eventDetailName">Name:</string>
     <string name="eventDetailDateTime">Date and Time:</string>
     <string name="eventDetailLocation">See Location</string>
+    <string name="todo">TODO</string>
+    <string name="type">Type</string>
+    <string name="location">Location</string>
+    <string name="time">Time</string>
+    <string name="add_event">Add Event</string>
+    <string name="date">Date</string>
+    <string name="capacity">Capacity</string>
+    <string name="description">Description</string>
+    <string name="name">Name</string>
+    <string name="enrolled_events">Enrolled Events</string>
+    <string name="my_events">My Events</string>
+    <string name="name">Name</string>
+    <string name="todo">TODO</string>
+    <string name="todo">TODO</string>
+    <string name="todo">TODO</string>
+    <string name="todo">TODO</string>
 
     <string-array name="spinner_items">
         <item>No Type</item>

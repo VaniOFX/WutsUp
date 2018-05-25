@@ -1,5 +1,6 @@
 package hk.ust.cse.comp4521.watsup;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,6 +26,13 @@ import static hk.ust.cse.comp4521.watsup.models.Activities.EXPLORE_ACTIVITY;
 import static hk.ust.cse.comp4521.watsup.models.Activities.HOSTED_ACTIVITY;
 import static hk.ust.cse.comp4521.watsup.models.Activities.OPTIONS_ACTIVITY;
 
+//# COMP 4521    #  YOUR FULL NAME        STUDENT ID          EMAIL ADDRESS
+//         1.       Ivan Bardarov         20501426            iebardarov@connect.ust.hk
+//         2.       Danny Nsouli          20531407            dmansouli@connect.ust.hk
+
+
+
+
 
 public class EventListActivity extends AppCompatActivity implements Observer {
 
@@ -32,6 +40,7 @@ public class EventListActivity extends AppCompatActivity implements Observer {
     private static final String TAG = "EventListActivity";
 
     private boolean mTwoPane;
+    ProgressDialog nDialog;
     public static List<Event> eventsToBeShown;
 
     @Override
@@ -41,6 +50,7 @@ public class EventListActivity extends AppCompatActivity implements Observer {
         DataBaseCommunicator.addObserver(this);
         initializeEventList();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         Log.d(TAG, getTitle().toString());
         toolbar.setTitle(getTitle());
@@ -64,6 +74,12 @@ public class EventListActivity extends AppCompatActivity implements Observer {
     private void initializeEventList() {
         int callingActivity = getIntent().getIntExtra(CALLING_ACTIVITY, -1);
         if (callingActivity == OPTIONS_ACTIVITY) {
+            nDialog = new ProgressDialog(EventListActivity.this);
+            nDialog.setMessage("Loading..");
+            nDialog.setTitle("Getting Data");
+            nDialog.setIndeterminate(false);
+            nDialog.setCancelable(true);
+            nDialog.show();
             eventsToBeShown = DataBaseCommunicator.eventsList;
         } else if (callingActivity == ENROLLED_ACTIVITY) {
             eventsToBeShown = DataBaseCommunicator.enrolledEvents;
@@ -102,5 +118,8 @@ public class EventListActivity extends AppCompatActivity implements Observer {
         View recyclerView = findViewById(R.id.event_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
+        if(nDialog != null)
+            nDialog.dismiss();
+
     }
 }

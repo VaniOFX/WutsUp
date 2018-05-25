@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+//# COMP 4521    #  YOUR FULL NAME        STUDENT ID          EMAIL ADDRESS
+//         1.       Ivan Bardarov         20501426            iebardarov@connect.ust.hk
+//         2.       Danny Nsouli          20531407            dmansouli@connect.ust.hk
+    -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -7,68 +13,36 @@
         android:orientation="vertical"
         tools:context=".OptionsActivity">
 
-        <Button
-            android:id="@+id/addevent"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/explorebutton"
-            android:layout_alignBottom="@+id/explorebutton"
-            android:layout_toStartOf="@+id/explorebutton"
-            android:background="@android:color/holo_blue_bright"
-            android:text="@string/addEventButton"
-            android:layout_marginEnd="66dp" />
-
-    <Button
-        android:id="@+id/explorebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/profile"
-        android:layout_alignBottom="@+id/profile"
-        android:layout_centerHorizontal="true"
-        android:background="@android:color/holo_blue_bright"
-        android:text="@string/exploreButton" />
-
-    <Button
-        android:id="@+id/profile"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/imageButtonProfile"
-        android:layout_marginBottom="65dp"
-        android:background="@android:color/holo_blue_bright"
-        android:text="Profile" />
-
-    <ImageButton
+        <ImageButton
         android:id="@+id/imageButtonAddEvent"
         android:layout_width="110dp"
         android:layout_height="100dp"
-        android:layout_above="@+id/addevent"
-        android:layout_alignStart="@+id/addevent"
-        android:layout_marginBottom="30dp"
-        android:background="@color/colorPrimaryDark"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/calicon" />
+            android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="43dp"
+            android:background="@color/colorPrimaryDark"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/addeventtabland" />
 
     <ImageButton
         android:id="@+id/imageButtonProfile"
         android:layout_width="110dp"
         android:layout_height="100dp"
-        android:layout_alignTop="@+id/imageButtonAddEvent"
-        android:layout_marginStart="60dp"
-        android:layout_toEndOf="@+id/explorebutton"
+        android:layout_centerInParent="true"
         android:background="@color/colorPrimaryDark"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/profilelogo" />
+        app:srcCompat="@drawable/proftabland" />
 
     <ImageButton
         android:id="@+id/imageButtonExplore"
         android:layout_width="110dp"
         android:layout_height="100dp"
-        android:layout_alignTop="@+id/imageButtonProfile"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="43dp"
         android:background="@color/colorPrimaryDark"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/download" />
+        app:srcCompat="@drawable/exploretabland" />
 
 
 </RelativeLayout>

@@ -12,6 +12,12 @@ import android.widget.ImageView;
 
 import hk.ust.cse.comp4521.watsup.models.Activities;
 
+//# COMP 4521    #  YOUR FULL NAME        STUDENT ID          EMAIL ADDRESS
+//         1.       Ivan Bardarov         20501426            iebardarov@connect.ust.hk
+//         2.       Danny Nsouli          20531407            dmansouli@connect.ust.hk
+
+
+
 public class OptionsActivity extends AppCompatActivity {
 
     private static final String TAG = "OptionsActivity";
@@ -47,13 +53,6 @@ public class OptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: OptionActivity started");
         setContentView(R.layout.activity_options);
-        Button addEventButton = (Button) findViewById(R.id.addevent);
-        Button exploreEventsButton = (Button) findViewById(R.id.explorebutton);
-        Button profileButton = (Button) findViewById(R.id.profile);
-
-        addEventButton.setOnClickListener(addEventButtonListener);
-        exploreEventsButton.setOnClickListener(exploreButtonListener);
-        profileButton.setOnClickListener(profileButtonListener);
 
         ImageButton addEventImageButton = (ImageButton) findViewById(R.id.imageButtonAddEvent);
         ImageButton exploreImageButton  = (ImageButton) findViewById(R.id.imageButtonExplore);

@@ -1,5 +1,4 @@
 package hk.ust.cse.comp4521.watsup.models;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +9,10 @@ import com.google.android.gms.maps.model.Marker;
 
 import hk.ust.cse.comp4521.watsup.R;
 
-/**
- * Created by User on 10/2/2017.
- */
+//# COMP 4521    #  YOUR FULL NAME        STUDENT ID          EMAIL ADDRESS
+//         1.       Ivan Bardarov         20501426            iebardarov@connect.ust.hk
+//         2.       Danny Nsouli          20531407            dmansouli@connect.ust.hk
+
 
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
