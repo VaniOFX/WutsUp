@@ -7,15 +7,6 @@
     <string name="addEventButton">Add Event</string>
     <string name="exploreButton">Explore Events</string>
     <string name="profile">Profile</string>
-    <string name="capacity">Capacity</string>
-    <string name="description">Description</string>
-    <string name="name">Name</string>
-    <string name="date">Date</string>
-    <string name="add_event">Add Event</string>
-    <string name="todo">TODO</string>
-    <string name="type">Type</string>
-    <string name="time">Time</string>
-    <string name="location">Location</string>
     <string name="successfulLocation">Location Selected Successfully</string>
     <string name="eventDetailDescription">Description:</string>
     <string name="eventDetailType">Type:</string>
@@ -33,12 +24,6 @@
     <string name="name">Name</string>
     <string name="enrolled_events">Enrolled Events</string>
     <string name="my_events">My Events</string>
-    <string name="name">Name</string>
-    <string name="todo">TODO</string>
-    <string name="todo">TODO</string>
-    <string name="todo">TODO</string>
-    <string name="todo">TODO</string>
-
     <string-array name="spinner_items">
         <item>No Type</item>
         <item>Sport</item>
